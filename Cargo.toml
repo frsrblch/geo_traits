@@ -2,8 +2,7 @@
 name = "geo_traits"
 version = "0.1.0"
 edition = "2021"
-
-[dependencies]
-num-traits = "0.2.15"
+authors = ["Fraser Balch <fraser.balch@gmail.com>"]
+keywords = ["clifford", "geometric", "algebra"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
