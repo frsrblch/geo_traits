@@ -66,18 +66,6 @@ pub trait GradeAntiproduct<Lhs, Rhs> {
     fn antiproduct(lhs: Lhs, rhs: Rhs) -> Self;
 }
 
-pub trait ConstGradeProduct<Rhs, const N: u32> {
-    type Output;
-    fn product(self, rhs: Rhs) -> Self::Output;
-}
-
-pub fn product<Lhs, Rhs, Output, const N: u32>(lhs: Lhs, rhs: Rhs) -> Output
-where
-    Lhs: ConstGradeProduct<Rhs, N, Output = Output>,
-{
-    <Lhs as ConstGradeProduct<Rhs, N>>::product(lhs, rhs)
-}
-
 /// The dual function: A(A*) = I
 pub trait Dual {
     type Output;
@@ -158,8 +146,4 @@ pub trait FloatType {
 pub trait Map<U>: FloatType {
     type Output: FloatType<Float = U>;
     fn map<F: Fn(Self::Float) -> U>(self, f: F) -> Self::Output;
-}
-
-pub trait SubsetOf<T> {
-    fn from_superset(value: T) -> Self;
 }
