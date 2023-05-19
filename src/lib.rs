@@ -108,6 +108,18 @@ pub trait Antireverse {
     fn antirev(self) -> Self;
 }
 
+/// The grade involution function
+pub trait GradeInvolution {
+    type Output;
+    fn grade_involution(self) -> Self;
+}
+
+/// The clifford conjugate, the combination of reversion and grade involution
+pub trait CliffordConjugate {
+    type Output;
+    fn conjugate(self) -> Self::Output;
+}
+
 /// The norm squared function: ||A||<sup>2</sup> = AÃ
 pub trait Norm2 {
     type Output;
