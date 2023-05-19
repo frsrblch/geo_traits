@@ -143,6 +143,7 @@ pub trait FloatType {
     type Float;
 }
 
+// Map the values of a multivector directly
 pub trait Map<U>: FloatType {
     type Output: FloatType<Float = U>;
     fn map<F: Fn(Self::Float) -> U>(self, f: F) -> Self::Output;
