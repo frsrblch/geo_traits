@@ -138,9 +138,20 @@ pub trait Antisandwich<Rhs> {
     fn antisandwich(self, rhs: Rhs) -> Self::Output;
 }
 
-/// For implementing generic traits and functions over types with an inner type parameter
+/// For implementing traits and functions over types with a generic inner type parameter
 pub trait FloatType {
     type Float;
+}
+
+/// For implementing traits and functions over types with a generic magnitude
+pub trait MagnitudeType {
+    type Mag;
+}
+
+/// For implementing traits and functions over types with a generic magnitude
+pub trait MagnitudeAssert<M> {
+    type Output;
+    fn assert(self) -> Self::Output;
 }
 
 // Map the values of a multivector directly
