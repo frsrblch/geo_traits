@@ -159,3 +159,109 @@ pub trait Map<U>: FloatType {
     type Output: FloatType<Float = U>;
     fn map<F: Fn(Self::Float) -> U>(self, f: F) -> Self::Output;
 }
+
+pub trait Ln {
+    type Output;
+    fn ln(self) -> Self::Output;
+}
+
+impl Ln for f32 {
+    type Output = f32;
+    #[inline]
+    fn ln(self) -> Self::Output {
+        f32::ln(self)
+    }
+}
+
+impl Ln for f64 {
+    type Output = f64;
+    #[inline]
+    fn ln(self) -> Self::Output {
+        f64::ln(self)
+    }
+}
+
+pub trait Exp {
+    type Output;
+    fn exp(self) -> Self::Output;
+}
+
+impl Exp for f32 {
+    type Output = f32;
+
+    fn exp(self) -> Self::Output {
+        f32::exp(self)
+    }
+}
+
+impl Exp for f64 {
+    type Output = f64;
+
+    fn exp(self) -> Self::Output {
+        f64::exp(self)
+    }
+}
+
+pub trait OneConst {
+    const ONE: Self;
+}
+
+macro_rules! one_const {
+    ($ty:ty: $one:expr) => {
+        impl OneConst for $ty {
+            const ONE: Self = $one;
+        }
+    };
+    ($($ty:ty: $one:expr,)*) => {
+        $(
+            one_const!($ty: $one);
+        )*
+    };
+}
+
+one_const! {
+    f32: 1.0,
+    f64: 1.0,
+    u8: 1,
+    u16: 1,
+    u32: 1,
+    u64: 1,
+    u128: 1,
+    i8: 1,
+    i16: 1,
+    i32: 1,
+    i64: 1,
+    i128: 1,
+}
+
+pub trait ZeroConst {
+    const ZERO: Self;
+}
+
+macro_rules! zero_const {
+    ($ty:ty: $zero:expr) => {
+        impl ZeroConst for $ty {
+            const ZERO: Self = $zero;
+        }
+    };
+    ($($ty:ty: $zero:expr,)*) => {
+        $(
+            zero_const!($ty: $zero);
+        )*
+    };
+}
+
+zero_const! {
+    f32: 0.0,
+    f64: 0.0,
+    u8: 0,
+    u16: 0,
+    u32: 0,
+    u64: 0,
+    u128: 0,
+    i8: 0,
+    i16: 0,
+    i32: 0,
+    i64: 0,
+    i128: 0,
+}
