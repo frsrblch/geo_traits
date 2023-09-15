@@ -126,13 +126,13 @@ pub trait Unitize {
     fn unit(self) -> Self::Output;
 }
 
-/// The sandwich product: ABA<sup>-1</sup>
+/// The sandwich product: ABÃ
 pub trait Sandwich<Rhs> {
     type Output;
     fn sandwich(self, rhs: Rhs) -> Self::Output;
 }
 
-/// The sandwich product: A⟇B⟇A<sup>-1</sup>
+/// The sandwich product: A⟇B⟇Ã
 pub trait Antisandwich<Rhs> {
     type Output;
     fn antisandwich(self, rhs: Rhs) -> Self::Output;
@@ -154,12 +154,35 @@ pub trait MagnitudeAssert<M> {
     fn assert(self) -> Self::Output;
 }
 
-// Map the values of a multivector directly
+/// Map the values of a multivector directly
 pub trait Map<U>: FloatType {
     type Output: FloatType<Float = U>;
     fn map<F: Fn(Self::Float) -> U>(self, f: F) -> Self::Output;
 }
 
+/// The square root function
+pub trait Sqrt {
+    type Output;
+    fn sqrt(self) -> Self::Output;
+}
+
+impl Sqrt for f32 {
+    type Output = f32;
+    #[inline]
+    fn sqrt(self) -> Self::Output {
+        f32::sqrt(self)
+    }
+}
+
+impl Sqrt for f64 {
+    type Output = f64;
+    #[inline]
+    fn sqrt(self) -> Self::Output {
+        f64::sqrt(self)
+    }
+}
+
+/// The natural logarithm: ln(R)
 pub trait Ln {
     type Output;
     fn ln(self) -> Self::Output;
@@ -181,6 +204,7 @@ impl Ln for f64 {
     }
 }
 
+/// The exponential function: eᴮ
 pub trait Exp {
     type Output;
     fn exp(self) -> Self::Output;
@@ -202,6 +226,7 @@ impl Exp for f64 {
     }
 }
 
+/// A const one value
 pub trait OneConst {
     const ONE: Self;
 }
@@ -234,6 +259,7 @@ one_const! {
     i128: 1,
 }
 
+/// A const zero value
 pub trait ZeroConst {
     const ZERO: Self;
 }
