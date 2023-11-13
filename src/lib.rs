@@ -51,7 +51,7 @@ impl<T> Number for T where
 
 /// Similar to `Number`, but allows binary operations between heterogeneous types.
 ///
-/// A practical example is the addition of floats and dual numbers. The float could be converted to a dual number 
+/// A practical example is the addition of floats and dual numbers. The float could be converted to a dual number
 /// before the operation, but the compiler applying the correct optimizations is not guaranteed.
 pub trait Numbers<U: Number>:
     Number
@@ -459,6 +459,13 @@ impl Exp for f64 {
 /// A const one value
 pub trait OneConst {
     const ONE: Self;
+    #[inline]
+    fn is_one(&self) -> bool
+    where
+        Self: Sized + PartialEq,
+    {
+        Self::ONE.eq(self)
+    }
 }
 
 macro_rules! one_const {
@@ -492,6 +499,13 @@ one_const! {
 /// A const zero value
 pub trait ZeroConst {
     const ZERO: Self;
+    #[inline]
+    fn is_one(&self) -> bool
+    where
+        Self: Sized + PartialEq,
+    {
+        Self::ZERO.eq(self)
+    }
 }
 
 macro_rules! zero_const {
