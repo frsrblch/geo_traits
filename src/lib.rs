@@ -23,8 +23,8 @@ pub trait Number:
     + Ln<Output = Self>
     + Exp<Output = Self>
     + Trig<Output = Self>
-    + ZeroConst
-    + OneConst
+    + num_traits::Zero
+    + num_traits::One
     + FromF64
 {
 }
@@ -43,8 +43,8 @@ impl<T> Number for T where
         + Ln<Output = Self>
         + Exp<Output = Self>
         + Trig<Output = Self>
-        + ZeroConst
-        + OneConst
+        + num_traits::Zero
+        + num_traits::One
         + FromF64
 {
 }
