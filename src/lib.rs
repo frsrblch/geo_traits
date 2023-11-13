@@ -101,6 +101,7 @@ pub trait Trig {
     const TAU: Self;
     fn sin(self) -> Self::Output;
     fn cos(self) -> Self::Output;
+    fn sin_cos(self) -> (Self::Output, Self::Output);
     fn tan(self) -> Self::Output;
     fn asin(self) -> Self::Output;
     fn acos(self) -> Self::Output;
@@ -125,6 +126,10 @@ impl Trig for f32 {
     #[inline]
     fn cos(self) -> Self::Output {
         self.cos()
+    }
+    #[inline]
+    fn sin_cos(self) -> (Self::Output, Self::Output) {
+        self.sin_cos()
     }
     #[inline]
     fn tan(self) -> Self::Output {
@@ -183,6 +188,10 @@ impl Trig for f64 {
     #[inline]
     fn cos(self) -> Self::Output {
         self.cos()
+    }
+    #[inline]
+    fn sin_cos(self) -> (Self::Output, Self::Output) {
+        self.sin_cos()
     }
     #[inline]
     fn tan(self) -> Self::Output {
