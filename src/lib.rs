@@ -1,6 +1,6 @@
 //! Traits for geometric algebra
 
-pub use num_traits::{One, Zero};
+pub use num_traits::{Inv, One, Zero};
 
 /// A minimal set of traits that serve as a lightweight alternative to `num_traits::Float`.
 ///
@@ -25,6 +25,7 @@ pub trait Number:
     + Ln<Output = Self>
     + Exp<Output = Self>
     + Trig<Output = Self>
+    + Inv<Output = Self>
     + Zero
     + One
     + FromF64
@@ -45,6 +46,7 @@ impl<T> Number for T where
         + Ln<Output = Self>
         + Exp<Output = Self>
         + Trig<Output = Self>
+        + Inv<Output = Self>
         + Zero
         + One
         + FromF64
