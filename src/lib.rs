@@ -1,5 +1,235 @@
 //! Traits for geometric algebra
 
+/// A minimal set of traits that serve as a lightweight alternative to `num_traits::Float`.
+///
+/// `num_traits::Float` is a one-for-one stand-in for `f32` and `f64`,
+/// and precludes other types that may not implement their full interface.
+///
+/// By contrast, `Number` descibes a the functionality required for a numeric type to be used
+/// as an approximation of the real numbers in geometric algebra.
+///
+/// A practical example is the use of dual numbers to perform automatic differentiation and differentiable programming.
+pub trait Number:
+    Sized
+    + Copy
+    + PartialEq
+    + PartialOrd
+    + std::ops::Add<Output = Self>
+    + std::ops::Sub<Output = Self>
+    + std::ops::Mul<Output = Self>
+    + std::ops::Div<Output = Self>
+    + std::ops::Neg<Output = Self>
+    + Sqrt<Output = Self>
+    + Ln<Output = Self>
+    + Exp<Output = Self>
+    + Trig<Output = Self>
+    + ZeroConst
+    + OneConst
+    + FromF64
+{
+}
+
+impl<T> Number for T where
+    T: Sized
+        + Copy
+        + PartialEq
+        + PartialOrd
+        + std::ops::Add<Output = Self>
+        + std::ops::Sub<Output = Self>
+        + std::ops::Mul<Output = Self>
+        + std::ops::Div<Output = Self>
+        + std::ops::Neg<Output = Self>
+        + Sqrt<Output = Self>
+        + Ln<Output = Self>
+        + Exp<Output = Self>
+        + Trig<Output = Self>
+        + ZeroConst
+        + OneConst
+        + FromF64
+{
+}
+
+/// Similar to `Number`, but allows binary operations between heterogeneous types.
+///
+/// A practical example is the addition of floats and dual numbers. The float could be converted to a dual number 
+/// before the operation, but the compiler applying the correct optimizations is not guaranteed.
+pub trait Numbers<U: Number>:
+    Number
+    + std::ops::Add<U, Output = <Self as Numbers<U>>::Output>
+    + std::ops::Sub<U, Output = <Self as Numbers<U>>::Output>
+    + std::ops::Mul<U, Output = <Self as Numbers<U>>::Output>
+    + std::ops::Div<U, Output = <Self as Numbers<U>>::Output>
+{
+    type Output: Number;
+}
+
+impl<T, U, V> Numbers<U> for T
+where
+    T: Number
+        + std::ops::Add<U, Output = V>
+        + std::ops::Sub<U, Output = V>
+        + std::ops::Mul<U, Output = V>
+        + std::ops::Div<U, Output = V>,
+    U: Number,
+    V: Number,
+{
+    type Output = V;
+}
+
+/// Convertion from `f64` for generic code that requires hard-coded constants
+pub trait FromF64 {
+    fn from_f64(value: f64) -> Self;
+}
+
+impl FromF64 for f32 {
+    #[inline]
+    fn from_f64(value: f64) -> f32 {
+        value as f32
+    }
+}
+
+impl FromF64 for f64 {
+    #[inline]
+    fn from_f64(value: f64) -> f64 {
+        value
+    }
+}
+
+/// Trigonometric and hyperbolic trigonometric functions
+pub trait Trig {
+    type Output;
+    const TAU: Self;
+    fn sin(self) -> Self::Output;
+    fn cos(self) -> Self::Output;
+    fn tan(self) -> Self::Output;
+    fn asin(self) -> Self::Output;
+    fn acos(self) -> Self::Output;
+    fn atan(self) -> Self::Output;
+    fn atan2(self, y: Self) -> Self::Output;
+    fn sinh(self) -> Self::Output;
+    fn cosh(self) -> Self::Output;
+    fn tanh(self) -> Self::Output;
+    fn asinh(self) -> Self::Output;
+    fn acosh(self) -> Self::Output;
+    fn atanh(self) -> Self::Output;
+}
+
+impl Trig for f32 {
+    const TAU: Self = std::f32::consts::TAU;
+
+    type Output = f32;
+    #[inline]
+    fn sin(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn cos(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn tan(self) -> Self::Output {
+        self.tan()
+    }
+    #[inline]
+    fn asin(self) -> Self::Output {
+        self.asin()
+    }
+    #[inline]
+    fn acos(self) -> Self::Output {
+        self.acos()
+    }
+    #[inline]
+    fn atan(self) -> Self::Output {
+        self.atan()
+    }
+    #[inline]
+    fn atan2(self, y: Self) -> Self::Output {
+        self.atan2(y)
+    }
+    #[inline]
+    fn sinh(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn cosh(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn tanh(self) -> Self::Output {
+        self.tan()
+    }
+    #[inline]
+    fn asinh(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn acosh(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn atanh(self) -> Self::Output {
+        self.tan()
+    }
+}
+
+impl Trig for f64 {
+    const TAU: Self = std::f64::consts::TAU;
+
+    type Output = f64;
+    #[inline]
+    fn sin(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn cos(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn tan(self) -> Self::Output {
+        self.tan()
+    }
+    #[inline]
+    fn asin(self) -> Self::Output {
+        self.asin()
+    }
+    #[inline]
+    fn acos(self) -> Self::Output {
+        self.acos()
+    }
+    #[inline]
+    fn atan(self) -> Self::Output {
+        self.atan()
+    }
+    #[inline]
+    fn atan2(self, y: Self) -> Self::Output {
+        self.atan2(y)
+    }
+    #[inline]
+    fn sinh(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn cosh(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn tanh(self) -> Self::Output {
+        self.tan()
+    }
+    #[inline]
+    fn asinh(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn acosh(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn atanh(self) -> Self::Output {
+        self.tan()
+    }
+}
+
 /// The geometric product: A⟑B
 pub trait Geo<Rhs> {
     type Output;
@@ -290,4 +520,25 @@ zero_const! {
     i32: 0,
     i64: 0,
     i128: 0,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn floats_impl_number() {
+        fn impls_number<T: Number>(_: &T) {}
+
+        impls_number(&0f32);
+        impls_number(&0f64);
+    }
+
+    #[test]
+    fn floats_impl_numbers() {
+        fn impls_numbers<T: Numbers<T, Output = T>>(_: &T) {}
+
+        impls_numbers(&0f32);
+        impls_numbers(&0f64);
+    }
 }
