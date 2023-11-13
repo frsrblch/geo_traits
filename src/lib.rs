@@ -1,6 +1,6 @@
 //! Traits for geometric algebra
 
-pub use num_traits::{FloatConst, Inv, One, Zero};
+pub use num_traits::{one, zero, FloatConst, Inv, One, Zero};
 
 /// A minimal set of traits that serve as a lightweight alternative to `num_traits::Float`.
 ///
