@@ -46,6 +46,7 @@ impl<T> Number for T where
         + Ln<Output = Self>
         + Exp<Output = Self>
         + Trig<Output = Self>
+        + InvTrig<Output = Self>
         + Inv<Output = Self>
         + Zero
         + One
@@ -107,13 +108,18 @@ pub trait Trig {
     fn cos(self) -> Self::Output;
     fn sin_cos(self) -> (Self::Output, Self::Output);
     fn tan(self) -> Self::Output;
+    fn sinh(self) -> Self::Output;
+    fn cosh(self) -> Self::Output;
+    fn tanh(self) -> Self::Output;
+}
+
+/// Inverse trigonometric and hyperbolic trigonometric functions
+pub trait InvTrig {
+    type Output;
     fn asin(self) -> Self::Output;
     fn acos(self) -> Self::Output;
     fn atan(self) -> Self::Output;
     fn atan2(self, y: Self) -> Self::Output;
-    fn sinh(self) -> Self::Output;
-    fn cosh(self) -> Self::Output;
-    fn tanh(self) -> Self::Output;
     fn asinh(self) -> Self::Output;
     fn acosh(self) -> Self::Output;
     fn atanh(self) -> Self::Output;
@@ -123,6 +129,7 @@ impl Trig for f32 {
     const TAU: Self = std::f32::consts::TAU;
 
     type Output = f32;
+
     #[inline]
     fn sin(self) -> Self::Output {
         self.sin()
@@ -140,6 +147,23 @@ impl Trig for f32 {
         self.tan()
     }
     #[inline]
+    fn sinh(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn cosh(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn tanh(self) -> Self::Output {
+        self.tan()
+    }
+}
+
+impl InvTrig for f32 {
+    type Output = f32;
+
+    #[inline]
     fn asin(self) -> Self::Output {
         self.asin()
     }
@@ -154,18 +178,6 @@ impl Trig for f32 {
     #[inline]
     fn atan2(self, y: Self) -> Self::Output {
         self.atan2(y)
-    }
-    #[inline]
-    fn sinh(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn cosh(self) -> Self::Output {
-        self.cos()
-    }
-    #[inline]
-    fn tanh(self) -> Self::Output {
-        self.tan()
     }
     #[inline]
     fn asinh(self) -> Self::Output {
@@ -185,6 +197,7 @@ impl Trig for f64 {
     const TAU: Self = std::f64::consts::TAU;
 
     type Output = f64;
+
     #[inline]
     fn sin(self) -> Self::Output {
         self.sin()
@@ -202,6 +215,23 @@ impl Trig for f64 {
         self.tan()
     }
     #[inline]
+    fn sinh(self) -> Self::Output {
+        self.sin()
+    }
+    #[inline]
+    fn cosh(self) -> Self::Output {
+        self.cos()
+    }
+    #[inline]
+    fn tanh(self) -> Self::Output {
+        self.tan()
+    }
+}
+
+impl InvTrig for f64 {
+    type Output = f64;
+
+    #[inline]
     fn asin(self) -> Self::Output {
         self.asin()
     }
@@ -216,18 +246,6 @@ impl Trig for f64 {
     #[inline]
     fn atan2(self, y: Self) -> Self::Output {
         self.atan2(y)
-    }
-    #[inline]
-    fn sinh(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn cosh(self) -> Self::Output {
-        self.cos()
-    }
-    #[inline]
-    fn tanh(self) -> Self::Output {
-        self.tan()
     }
     #[inline]
     fn asinh(self) -> Self::Output {
