@@ -25,6 +25,7 @@ pub trait Number:
     + Ln<Output = Self>
     + Exp<Output = Self>
     + Trig<Output = Self>
+    + InvTrig<Output = Self>
     + Inv<Output = Self>
     + Zero
     + One
