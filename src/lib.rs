@@ -126,71 +126,41 @@ pub trait InvTrig {
     fn atanh(self) -> Self::Output;
 }
 
+macro_rules! impl_fn {
+    ($fn_:ident) => {
+        #[inline]
+        fn $fn_(self) -> Self::Output {
+            self.$fn_()
+        }
+    };
+    ($($fn_:ident),* $(,)?) => {
+        $(
+            impl_fn!($fn_);
+        )*
+    };
+}
+
 impl Trig for f32 {
     const TAU: Self = std::f32::consts::TAU;
 
     type Output = f32;
 
-    #[inline]
-    fn sin(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn cos(self) -> Self::Output {
-        self.cos()
-    }
+    impl_fn!(sin, cos, tan, sinh, cosh, tanh);
+
     #[inline]
     fn sin_cos(self) -> (Self::Output, Self::Output) {
         self.sin_cos()
-    }
-    #[inline]
-    fn tan(self) -> Self::Output {
-        self.tan()
-    }
-    #[inline]
-    fn sinh(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn cosh(self) -> Self::Output {
-        self.cos()
-    }
-    #[inline]
-    fn tanh(self) -> Self::Output {
-        self.tan()
     }
 }
 
 impl InvTrig for f32 {
     type Output = f32;
 
-    #[inline]
-    fn asin(self) -> Self::Output {
-        self.asin()
-    }
-    #[inline]
-    fn acos(self) -> Self::Output {
-        self.acos()
-    }
-    #[inline]
-    fn atan(self) -> Self::Output {
-        self.atan()
-    }
+    impl_fn!(asin, acos, atan, asinh, acosh, atanh);
+
     #[inline]
     fn atan2(self, x: Self) -> Self::Output {
         self.atan2(x)
-    }
-    #[inline]
-    fn asinh(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn acosh(self) -> Self::Output {
-        self.cos()
-    }
-    #[inline]
-    fn atanh(self) -> Self::Output {
-        self.tan()
     }
 }
 
@@ -199,66 +169,22 @@ impl Trig for f64 {
 
     type Output = f64;
 
-    #[inline]
-    fn sin(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn cos(self) -> Self::Output {
-        self.cos()
-    }
+    impl_fn!(sin, cos, tan, sinh, cosh, tanh);
+
     #[inline]
     fn sin_cos(self) -> (Self::Output, Self::Output) {
         self.sin_cos()
-    }
-    #[inline]
-    fn tan(self) -> Self::Output {
-        self.tan()
-    }
-    #[inline]
-    fn sinh(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn cosh(self) -> Self::Output {
-        self.cos()
-    }
-    #[inline]
-    fn tanh(self) -> Self::Output {
-        self.tan()
     }
 }
 
 impl InvTrig for f64 {
     type Output = f64;
 
-    #[inline]
-    fn asin(self) -> Self::Output {
-        self.asin()
-    }
-    #[inline]
-    fn acos(self) -> Self::Output {
-        self.acos()
-    }
-    #[inline]
-    fn atan(self) -> Self::Output {
-        self.atan()
-    }
+    impl_fn!(asin, acos, atan, asinh, acosh, atanh);
+
     #[inline]
     fn atan2(self, x: Self) -> Self::Output {
         self.atan2(x)
-    }
-    #[inline]
-    fn asinh(self) -> Self::Output {
-        self.sin()
-    }
-    #[inline]
-    fn acosh(self) -> Self::Output {
-        self.cos()
-    }
-    #[inline]
-    fn atanh(self) -> Self::Output {
-        self.tan()
     }
 }
 
