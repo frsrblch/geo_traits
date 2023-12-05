@@ -120,7 +120,7 @@ pub trait InvTrig {
     fn asin(self) -> Self::Output;
     fn acos(self) -> Self::Output;
     fn atan(self) -> Self::Output;
-    fn atan2(self, y: Self) -> Self::Output;
+    fn atan2(self, x: Self) -> Self::Output;
     fn asinh(self) -> Self::Output;
     fn acosh(self) -> Self::Output;
     fn atanh(self) -> Self::Output;
@@ -177,8 +177,8 @@ impl InvTrig for f32 {
         self.atan()
     }
     #[inline]
-    fn atan2(self, y: Self) -> Self::Output {
-        self.atan2(y)
+    fn atan2(self, x: Self) -> Self::Output {
+        self.atan2(x)
     }
     #[inline]
     fn asinh(self) -> Self::Output {
@@ -245,8 +245,8 @@ impl InvTrig for f64 {
         self.atan()
     }
     #[inline]
-    fn atan2(self, y: Self) -> Self::Output {
-        self.atan2(y)
+    fn atan2(self, x: Self) -> Self::Output {
+        self.atan2(x)
     }
     #[inline]
     fn asinh(self) -> Self::Output {
