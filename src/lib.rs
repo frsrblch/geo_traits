@@ -348,71 +348,36 @@ pub trait Map<U>: FloatType {
     fn map<F: Fn(Self::Float) -> U>(self, f: F) -> Self::Output;
 }
 
-/// The square root function
-pub trait Sqrt {
-    type Output;
-    fn sqrt(self) -> Self::Output;
+macro_rules! impl_float_fn_trait {
+    ($trait_:ident :: $fn_:ident $(, $doc:literal)?) => {
+        $(#[doc = $doc])?
+        pub trait $trait_ {
+            type Output;
+            fn $fn_(self) -> Self::Output;
+        }
+
+        impl $trait_ for f32 {
+            type Output = f32;
+            #[inline]
+            fn $fn_(self) -> Self::Output {
+                f32::$fn_(self)
+            }
+        }
+
+        impl $trait_ for f64 {
+            type Output = f64;
+            #[inline]
+            fn $fn_(self) -> Self::Output {
+                f64::$fn_(self)
+            }
+        }
+    };
 }
 
-impl Sqrt for f32 {
-    type Output = f32;
-    #[inline]
-    fn sqrt(self) -> Self::Output {
-        f32::sqrt(self)
-    }
-}
-
-impl Sqrt for f64 {
-    type Output = f64;
-    #[inline]
-    fn sqrt(self) -> Self::Output {
-        f64::sqrt(self)
-    }
-}
-
-/// The natural logarithm: ln(R)
-pub trait Ln {
-    type Output;
-    fn ln(self) -> Self::Output;
-}
-
-impl Ln for f32 {
-    type Output = f32;
-    #[inline]
-    fn ln(self) -> Self::Output {
-        f32::ln(self)
-    }
-}
-
-impl Ln for f64 {
-    type Output = f64;
-    #[inline]
-    fn ln(self) -> Self::Output {
-        f64::ln(self)
-    }
-}
-
-/// The exponential function: eᴮ
-pub trait Exp {
-    type Output;
-    fn exp(self) -> Self::Output;
-}
-
-impl Exp for f32 {
-    type Output = f32;
-
-    fn exp(self) -> Self::Output {
-        f32::exp(self)
-    }
-}
-
-impl Exp for f64 {
-    type Output = f64;
-
-    fn exp(self) -> Self::Output {
-        f64::exp(self)
-    }
-}
+impl_float_fn_trait!(Sqrt::sqrt, "The square root function");
+impl_float_fn_trait!(Cbrt::cbrt, "The cubic root function");
+impl_float_fn_trait!(Ln::ln, "The natural logarithm: ln(R)");
+impl_float_fn_trait!(Exp::exp, "The exponential function: eᴮ");
 
 /// A const one value
 pub trait OneConst {
