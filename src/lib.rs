@@ -379,6 +379,28 @@ impl_float_fn_trait!(Cbrt::cbrt, "The cubic root function");
 impl_float_fn_trait!(Ln::ln, "The natural logarithm: ln(R)");
 impl_float_fn_trait!(Exp::exp, "The exponential function: eᴮ");
 
+/// The quartic root function. Implemented as a double square root.
+pub trait Qrt {
+    type Output;
+    fn qrt(self) -> Self::Output;
+}
+
+impl Qrt for f32 {
+    type Output = f32;
+    #[inline]
+    fn qrt(self) -> Self::Output {
+        self.sqrt().sqrt()
+    }
+}
+
+impl Qrt for f64 {
+    type Output = f64;
+    #[inline]
+    fn qrt(self) -> Self::Output {
+        self.sqrt().sqrt()
+    }
+}
+
 /// A const one value
 pub trait OneConst {
     const ONE: Self;
