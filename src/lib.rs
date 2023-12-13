@@ -343,8 +343,8 @@ pub trait MagnitudeAssert<M> {
 }
 
 /// Map the values of a multivector directly
-pub trait Map<U>: FloatType {
-    type Output: FloatType<Float = U>;
+pub trait Map<U = <Self as FloatType>::Float>: FloatType {
+    type Output;
     fn map<F: Fn(Self::Float) -> U>(self, f: F) -> Self::Output;
 }
 
@@ -481,6 +481,50 @@ zero_const! {
     i128: 0,
 }
 
+/// Base 10 logarithm
+pub trait Log10 {
+    type Output;
+    fn log10(self) -> Self::Output;
+}
+
+impl Log10 for f32 {
+    type Output = f32;
+    #[inline]
+    fn log10(self) -> Self::Output {
+        self.log10()
+    }
+}
+
+impl Log10 for f64 {
+    type Output = f64;
+    #[inline]
+    fn log10(self) -> Self::Output {
+        self.log10()
+    }
+}
+
+/// Base 10 exponentiation
+pub trait Exp10 {
+    type Output;
+    fn exp10(self) -> Self::Output;
+}
+
+impl Exp10 for f32 {
+    type Output = f32;
+    #[inline]
+    fn exp10(self) -> Self::Output {
+        10f32.powf(self)
+    }
+}
+
+impl Exp10 for f64 {
+    type Output = f64;
+    #[inline]
+    fn exp10(self) -> Self::Output {
+        10f64.powf(self)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -500,4 +544,7 @@ mod tests {
         impls_numbers(&0f32);
         impls_numbers(&0f64);
     }
+
+    #[test]
+    fn log_mass_test() {}
 }
