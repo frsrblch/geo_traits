@@ -82,6 +82,27 @@ where
     type Output = V;
 }
 
+pub trait Pow<F = Self> {
+    type Output;
+    fn pow(self, power: F) -> Self::Output;
+}
+
+impl Pow for f32 {
+    type Output = f32;
+    #[inline]
+    fn pow(self, power: f32) -> Self::Output {
+        f32::powf(self, power)
+    }
+}
+
+impl Pow for f64 {
+    type Output = f64;
+
+    fn pow(self, power: f64) -> Self::Output {
+        f64::powf(self, power)
+    }
+}
+
 /// Convertion from `f64` for generic code that requires hard-coded constants
 pub trait FromF64 {
     fn from_f64(value: f64) -> Self;
