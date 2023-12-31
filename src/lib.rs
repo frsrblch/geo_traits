@@ -82,6 +82,57 @@ where
     type Output = V;
 }
 
+pub trait Signed {
+    /// Absolute value, `|x|`
+    fn abs(self) -> Self;
+    /// Returns `1` or `-1`
+    fn signum(self) -> Self;
+    /// `x > 0`
+    #[allow(clippy::wrong_self_convention)]
+    fn is_sign_positive(self) -> bool;
+    /// `x < 0`
+    #[allow(clippy::wrong_self_convention)]
+    fn is_sign_negative(self) -> bool;
+}
+
+impl Signed for f32 {
+    #[inline]
+    fn abs(self) -> Self {
+        f32::abs(self)
+    }
+    #[inline]
+    fn signum(self) -> Self {
+        f32::signum(self)
+    }
+    #[inline]
+    fn is_sign_positive(self) -> bool {
+        f32::is_sign_positive(self)
+    }
+    #[inline]
+    fn is_sign_negative(self) -> bool {
+        f32::is_sign_negative(self)
+    }
+}
+
+impl Signed for f64 {
+    #[inline]
+    fn abs(self) -> Self {
+        f64::abs(self)
+    }
+    #[inline]
+    fn signum(self) -> Self {
+        f64::signum(self)
+    }
+    #[inline]
+    fn is_sign_positive(self) -> bool {
+        f64::is_sign_positive(self)
+    }
+    #[inline]
+    fn is_sign_negative(self) -> bool {
+        f64::is_sign_negative(self)
+    }
+}
+
 pub trait Pow<F = Self> {
     type Output;
     fn pow(self, power: F) -> Self::Output;
