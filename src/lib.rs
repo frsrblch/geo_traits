@@ -398,6 +398,11 @@ pub trait Antisandwich<Rhs> {
     fn antisandwich(self, rhs: Rhs) -> Self::Output;
 }
 
+pub trait GradeFilter<Target> {
+    type Output;
+    fn grade_filter(self, target: Target) -> Self::Output;
+}
+
 /// For implementing traits and functions over types with a generic inner type parameter
 pub trait FloatType {
     type Float;
