@@ -2,6 +2,14 @@
 
 pub use num_traits::{one, zero, FloatConst, Inv, One, Zero};
 
+#[doc = "A type state that represents a k-vector of arbitrary magnitude."]
+#[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+pub struct Any;
+
+#[doc = "A type state that represents a k-vector of magnitude one."]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+pub struct Unit;
+
 /// A minimal set of traits that serve as a lightweight alternative to `num_traits::Float`.
 ///
 /// `num_traits::Float` is a one-for-one stand-in for `f32` and `f64`,
@@ -402,6 +410,48 @@ pub trait GradeFilter<Target> {
     type Output;
     fn grade_filter(self, target: Target) -> Self::Output;
 }
+
+macro_rules! binary_fn_alias {
+    ($($trait_ty:ident)::+, $trait_fn:ident) => {
+        #[inline]
+        pub fn $trait_fn<T, U>(lhs: T, rhs: U) -> <T as $($trait_ty)::*<U>>::Output
+        where
+            T: $($trait_ty)::*<U>,
+        {
+            lhs.$trait_fn(rhs)
+        }
+    };
+}
+
+binary_fn_alias!(std::ops::Add, add);
+binary_fn_alias!(std::ops::Sub, sub);
+binary_fn_alias!(std::ops::Mul, mul);
+binary_fn_alias!(std::ops::Div, div);
+binary_fn_alias!(Geo, geo);
+binary_fn_alias!(Dot, dot);
+binary_fn_alias!(Wedge, wedge);
+binary_fn_alias!(Antiwedge, antiwedge);
+binary_fn_alias!(Sandwich, sandwich);
+binary_fn_alias!(GradeFilter, grade_filter);
+
+macro_rules! unary_fn_alias {
+    ($($trait_ty:ident)::+, $trait_fn:ident) => {
+        #[inline]
+        pub fn $trait_fn<T>(value: T) -> <T as $($trait_ty)::*>::Output
+        where
+            T: $($trait_ty)::*,
+        {
+            value.$trait_fn()
+        }
+    };
+}
+
+unary_fn_alias!(Reverse, rev);
+unary_fn_alias!(Dual, dual);
+unary_fn_alias!(Norm, norm);
+unary_fn_alias!(Norm2, norm2);
+unary_fn_alias!(Inv, inv);
+unary_fn_alias!(Unitize, unit);
 
 /// For implementing traits and functions over types with a generic inner type parameter
 pub trait FloatType {
