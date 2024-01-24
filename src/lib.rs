@@ -10,6 +10,30 @@ pub struct Any;
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub struct Unit;
 
+macro_rules! mag_ops {
+    ($lhs:ident, $rhs:ident = $out:ident) => {
+        impl std::ops::Mul<$rhs> for $lhs {
+            type Output = $out;
+            #[inline]
+            fn mul(self, _: $rhs) -> Self::Output {
+                $out
+            }
+        }
+        impl std::ops::Div<$rhs> for $lhs {
+            type Output = $out;
+            #[inline]
+            fn div(self, _: $rhs) -> Self::Output {
+                $out
+            }
+        }
+    };
+}
+
+mag_ops!(Any, Any = Any);
+mag_ops!(Any, Unit = Any);
+mag_ops!(Unit, Any = Any);
+mag_ops!(Unit, Unit = Unit);
+
 /// A minimal set of traits that serve as a lightweight alternative to `num_traits::Float`.
 ///
 /// `num_traits::Float` is a one-for-one stand-in for `f32` and `f64`,
