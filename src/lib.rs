@@ -237,6 +237,12 @@ macro_rules! impl_fn {
             self.$fn_()
         }
     };
+    ($fn_:ident clamp $l:expr, $u:expr) => {
+        #[inline]
+        fn $fn_(self) -> Self::Output {
+            self.$fn_()
+        }
+    };
     ($($fn_:ident),* $(,)?) => {
         $(
             impl_fn!($fn_);
@@ -260,7 +266,10 @@ impl Trig for f32 {
 impl InvTrig for f32 {
     type Output = f32;
 
-    impl_fn!(asin, acos, atan, asinh, acosh, atanh);
+    impl_fn!(asin clamp -1.0, 1.0);
+    impl_fn!(acos clamp -1.0, 1.0);
+
+    impl_fn!(atan, asinh, acosh, atanh);
 
     #[inline]
     fn atan2(self, x: Self) -> Self::Output {
@@ -284,7 +293,10 @@ impl Trig for f64 {
 impl InvTrig for f64 {
     type Output = f64;
 
-    impl_fn!(asin, acos, atan, asinh, acosh, atanh);
+    impl_fn!(asin clamp -1.0, 1.0);
+    impl_fn!(acos clamp -1.0, 1.0);
+
+    impl_fn!(atan, asinh, acosh, atanh);
 
     #[inline]
     fn atan2(self, x: Self) -> Self::Output {
