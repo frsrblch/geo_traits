@@ -11,7 +11,7 @@ pub struct Any;
 pub struct Unit;
 
 macro_rules! mag_ops {
-    ($lhs:ident, $rhs:ident = $out:ident) => {
+    ($lhs:ident * $rhs:ident = $out:ident) => {
         impl std::ops::Mul<$rhs> for $lhs {
             type Output = $out;
             #[inline]
