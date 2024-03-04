@@ -29,10 +29,10 @@ macro_rules! mag_ops {
     };
 }
 
-mag_ops!(Any, Any = Any);
-mag_ops!(Any, Unit = Any);
-mag_ops!(Unit, Any = Any);
-mag_ops!(Unit, Unit = Unit);
+mag_ops!(Any * Any = Any);
+mag_ops!(Any * Unit = Any);
+mag_ops!(Unit * Any = Any);
+mag_ops!(Unit * Unit = Unit);
 
 /// A minimal set of traits that serve as a lightweight alternative to `num_traits::Float`.
 ///
