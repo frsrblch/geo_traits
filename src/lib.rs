@@ -421,7 +421,7 @@ pub trait Norm2 {
 /// The antinorm squared function: ||A||<sub>○</sub><sup>2</sup> = A○Ã
 pub trait Antinorm2 {
     type Output;
-    fn norm2(self) -> Self::Output;
+    fn antinorm2(self) -> Self::Output;
 }
 
 /// The norm function: ||A|| = √(AÃ)
@@ -433,7 +433,7 @@ pub trait Norm {
 /// The antinorm function: ||A||<sub>○</sub> = √(A○Ã)
 pub trait Antinorm {
     type Output;
-    fn norm(self) -> Self::Output;
+    fn antinorm(self) -> Self::Output;
 }
 
 /// The unitize function: Â = A / ||A||
