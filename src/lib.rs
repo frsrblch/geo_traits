@@ -418,8 +418,20 @@ pub trait Norm2 {
     fn norm2(self) -> Self::Output;
 }
 
+/// The antinorm squared function: ||A||<sub>○</sub><sup>2</sup> = A○Ã
+pub trait Antinorm2 {
+    type Output;
+    fn norm2(self) -> Self::Output;
+}
+
 /// The norm function: ||A|| = √(AÃ)
 pub trait Norm {
+    type Output;
+    fn norm(self) -> Self::Output;
+}
+
+/// The antinorm function: ||A||<sub>○</sub> = √(A○Ã)
+pub trait Antinorm {
     type Output;
     fn norm(self) -> Self::Output;
 }
