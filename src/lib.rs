@@ -609,11 +609,13 @@ one_const! {
     u32: 1,
     u64: 1,
     u128: 1,
+    usize: 1,
     i8: 1,
     i16: 1,
     i32: 1,
     i64: 1,
     i128: 1,
+    isize: 1,
 }
 
 /// A const zero value
@@ -649,11 +651,13 @@ zero_const! {
     u32: 0,
     u64: 0,
     u128: 0,
+    usize: 0,
     i8: 0,
     i16: 0,
     i32: 0,
     i64: 0,
     i128: 0,
+    isize: 0,
 }
 
 /// Base 10 logarithm
