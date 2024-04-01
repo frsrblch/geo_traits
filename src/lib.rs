@@ -305,69 +305,57 @@ impl InvTrig for f64 {
 }
 
 /// The geometric product: A⟑B
-pub trait Geo<Rhs> {
+pub trait Geo<Rhs = Self> {
     type Output;
     fn geo(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The exterior product: A∧B
-pub trait Wedge<Rhs> {
+pub trait Wedge<Rhs = Self> {
     type Output;
     fn wedge(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The inner product: A⋅B = Σ〈〈A〉<sub>r</sub>〈B〉<sub>s</sub>〉<sub>|r-s|</sub>
-pub trait Dot<Rhs> {
+pub trait Dot<Rhs = Self> {
     type Output;
     fn dot(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The antigeometric product: A⟇B
-pub trait Antigeo<Rhs> {
+pub trait Antigeo<Rhs = Self> {
     type Output;
     fn antigeo(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The antidot product: A○B
-pub trait Antidot<Rhs> {
+pub trait Antidot<Rhs = Self> {
     type Output;
     fn antidot(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The regressive product: A∨B
-pub trait Antiwedge<Rhs> {
+pub trait Antiwedge<Rhs = Self> {
     type Output;
     fn antiwedge(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The commutator product: A×B = ½(AB - BA)
-pub trait Commutator<Rhs> {
+pub trait Commutator<Rhs = Self> {
     type Output;
     fn com(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The left contraction: A ⌋ B = Σ〈〈A〉<sub>r</sub>〈B〉<sub>s</sub>〉<sub>r-s</sub>
-pub trait LeftContraction<Rhs> {
+pub trait LeftContraction<Rhs = Self> {
     type Output;
     fn left_con(self, rhs: Rhs) -> Self::Output;
 }
 
 /// The right contraction: A ⌊ B = Σ〈〈A〉<sub>r</sub>〈B〉<sub>s</sub>〉<sub>s-r</sub>
-pub trait RightContraction<Rhs> {
+pub trait RightContraction<Rhs = Self> {
     type Output;
     fn right_con(self, rhs: Rhs) -> Self::Output;
-}
-
-/// The geometric product of grade n: 〈AB〉<sub>n</sub>
-pub trait GradeProduct<Lhs, Rhs> {
-    type Output;
-    fn product(lhs: Lhs, rhs: Rhs) -> Self::Output;
-}
-
-/// The geometric antiproduct of grade n: 〈A⟇B〉<sub>n</sub>
-pub trait GradeAntiproduct<Lhs, Rhs> {
-    type Output;
-    fn antiproduct(lhs: Lhs, rhs: Rhs) -> Self;
 }
 
 /// The dual function: A(A*) = I
