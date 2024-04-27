@@ -56,8 +56,6 @@ pub trait Number:
     + Sqrt<Output = Self>
     + Ln<Output = Self>
     + Exp<Output = Self>
-    + Trig<Output = Self>
-    + InvTrig<Output = Self>
     + Inv<Output = Self>
     + Zero
     + One
@@ -78,8 +76,6 @@ impl<T> Number for T where
         + Sqrt<Output = Self>
         + Ln<Output = Self>
         + Exp<Output = Self>
-        + Trig<Output = Self>
-        + InvTrig<Output = Self>
         + Inv<Output = Self>
         + Zero
         + One
@@ -711,7 +707,4 @@ mod tests {
         impls_numbers(&0f32);
         impls_numbers(&0f64);
     }
-
-    #[test]
-    fn log_mass_test() {}
 }
