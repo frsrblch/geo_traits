@@ -57,6 +57,8 @@ pub trait Number:
     + Ln<Output = Self>
     + Exp<Output = Self>
     + Inv<Output = Self>
+    + Trig<Output = Self>
+    + InvTrig<Output = Self>
     + Zero
     + One
     + FromF64
@@ -77,6 +79,8 @@ impl<T> Number for T where
         + Ln<Output = Self>
         + Exp<Output = Self>
         + Inv<Output = Self>
+        + Trig<Output = Self>
+        + InvTrig<Output = Self>
         + Zero
         + One
         + FromF64
@@ -204,7 +208,7 @@ impl FromF64 for f64 {
 /// Trigonometric and hyperbolic trigonometric functions
 pub trait Trig {
     type Output;
-    const TAU: Self;
+    fn tau() -> Self;
     fn sin(self) -> Self::Output;
     fn cos(self) -> Self::Output;
     fn sin_cos(self) -> (Self::Output, Self::Output);
@@ -247,7 +251,9 @@ macro_rules! impl_fn {
 }
 
 impl Trig for f32 {
-    const TAU: Self = std::f32::consts::TAU;
+    fn tau() -> Self {
+        std::f32::consts::TAU
+    }
 
     type Output = f32;
 
@@ -274,7 +280,9 @@ impl InvTrig for f32 {
 }
 
 impl Trig for f64 {
-    const TAU: Self = std::f64::consts::TAU;
+    fn tau() -> Self {
+        std::f64::consts::TAU
+    }
 
     type Output = f64;
 
