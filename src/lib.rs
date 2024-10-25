@@ -498,6 +498,14 @@ pub trait FloatType {
     type Float;
 }
 
+impl FloatType for f32 {
+    type Float = f32;
+}
+
+impl FloatType for f64 {
+    type Float = f64;
+}
+
 /// For implementing traits and functions over types with a generic magnitude
 pub trait MagnitudeType {
     type Mag;
