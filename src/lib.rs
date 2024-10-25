@@ -410,6 +410,22 @@ pub trait Norm2 {
     fn norm2(self) -> Self::Output;
 }
 
+impl Norm2 for f32 {
+    type Output = f32;
+
+    fn norm2(self) -> Self::Output {
+        self * self
+    }
+}
+
+impl Norm2 for f64 {
+    type Output = f64;
+
+    fn norm2(self) -> Self::Output {
+        self * self
+    }
+}
+
 /// The antinorm squared function: ||A||<sub>○</sub><sup>2</sup> = A○Ã
 pub trait Antinorm2 {
     type Output;
@@ -420,6 +436,22 @@ pub trait Antinorm2 {
 pub trait Norm {
     type Output;
     fn norm(self) -> Self::Output;
+}
+
+impl Norm for f32 {
+    type Output = f32;
+
+    fn norm(self) -> Self::Output {
+        self.abs()
+    }
+}
+
+impl Norm for f64 {
+    type Output = f64;
+
+    fn norm(self) -> Self::Output {
+        self.abs()
+    }
 }
 
 /// The antinorm function: ||A||<sub>○</sub> = √(A○Ã)
