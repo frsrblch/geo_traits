@@ -654,7 +654,7 @@ one_const! {
 pub trait ZeroConst {
     const ZERO: Self;
     #[inline]
-    fn is_one(&self) -> bool
+    fn is_zero(&self) -> bool
     where
         Self: Sized + PartialEq,
     {
