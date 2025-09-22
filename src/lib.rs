@@ -53,6 +53,7 @@ pub trait Number:
     + std::ops::Mul<Output = Self>
     + std::ops::Div<Output = Self>
     + std::ops::Neg<Output = Self>
+    + Signed
     + Sqrt<Output = Self>
     + Ln<Output = Self>
     + Exp<Output = Self>
@@ -75,6 +76,7 @@ impl<T> Number for T where
         + std::ops::Mul<Output = Self>
         + std::ops::Div<Output = Self>
         + std::ops::Neg<Output = Self>
+        + Signed
         + Sqrt<Output = Self>
         + Ln<Output = Self>
         + Exp<Output = Self>
