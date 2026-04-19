@@ -1,7 +1,5 @@
 //! Traits for geometric algebra
 
-pub use num_traits::{one, zero, FloatConst, Inv, One, Zero};
-
 #[doc = "A type state that represents a k-vector of arbitrary magnitude."]
 #[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub struct Any;
@@ -57,11 +55,11 @@ pub trait Number:
     + Sqrt<Output = Self>
     + Ln<Output = Self>
     + Exp<Output = Self>
-    + Inv<Output = Self>
+    + num_traits::Inv<Output = Self>
     + Trig<Output = Self>
     + InvTrig<Output = Self>
-    + Zero
-    + One
+    + num_traits::Zero
+    + num_traits::One
     + FromF64
 {
 }
@@ -80,11 +78,11 @@ impl<T> Number for T where
         + Sqrt<Output = Self>
         + Ln<Output = Self>
         + Exp<Output = Self>
-        + Inv<Output = Self>
+        + num_traits::Inv<Output = Self>
         + Trig<Output = Self>
         + InvTrig<Output = Self>
-        + Zero
-        + One
+        + num_traits::Zero
+        + num_traits::One
         + FromF64
 {
 }
@@ -524,7 +522,7 @@ unary_fn_alias!(Reverse, rev);
 unary_fn_alias!(Dual, dual);
 unary_fn_alias!(Norm, norm);
 unary_fn_alias!(Norm2, norm2);
-unary_fn_alias!(Inv, inv);
+unary_fn_alias!(num_traits::Inv, inv);
 unary_fn_alias!(Unitize, unit);
 
 /// For implementing traits and functions over types with a generic inner type parameter
